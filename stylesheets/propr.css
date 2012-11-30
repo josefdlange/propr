@@ -1,0 +1,21 @@
+/*
+ * PROPR: Stage prop management on the web.
+ * ========================================
+ *
+ *
+ *
+ *
+ * 
+ * Element styles:
+ * 
+ */
+
+ul.navigation {
+    list-style-type: none;
+}
+
+ul.navigation li {
+    float: left;
+    margin-right: 10px;
+    margin-left: 10px;
+}
