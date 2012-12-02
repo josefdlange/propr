@@ -8,7 +8,7 @@
 	<!-- Basic Page Needs
   ================================================== -->
 	<meta charset="utf-8">
-	<title>Propr: Stage Prop Management</title>
+	<title>Propr: Stage Prop Management | Log In</title>
 	<meta name="description" content="">
 	<meta name="author" content="">
 
@@ -55,14 +55,11 @@
 		<?php
 		  require_once("includes/navigation.php");
 		?>
-		<div class="six columns">
-			<h3>Welcome to Propr!</h3>
-			<p style="padding-right: 10px;">Propr is a lightweight, database-driven web application to manage stage props, the productions in which they're involved, and the persons resposible for them. This application is developed as a project for the Database Management Systems course at the University of Puget Sound, Fall 2012. <a href="http://josefdlange.com">Josef D. Lange</a> and Nick Burns.</p>
-		</div>
-		<div class="ten columns">
-			<h3>Recently-added Props</h3>
-			<p>Here are some of the most recently added props. Click on them to find more information.</p>	
-			<?php echo(most_recent_props()); ?>
+		<div class="four columns offset-by-six">
+		  <h5>Log in</h5>
+		  <form name="login">
+		      
+		  </form>
 		</div>
 	</div><!-- container -->
 
