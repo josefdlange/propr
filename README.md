@@ -1,3 +1,5 @@
+![propr](https://raw.github.com/josefdlange/propr/master/graphics/propr_logo.png)
+
 propr
 =====
 
