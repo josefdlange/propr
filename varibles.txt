@@ -1,0 +1,4 @@
+*table_name
+#3
+-cats,dogs
+-red,blue
