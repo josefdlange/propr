@@ -1,1 +1,8 @@
 .DS_Store
+
+.aux
+.nav
+.out
+.snm
+.toc
+.log
