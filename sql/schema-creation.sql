@@ -72,7 +72,7 @@ CREATE TABLE IF NOT EXISTS `photo` (
 
   `prop-id` int(30) NOT NULL,
   `photo-mime-type` varchar(30) NOT NULL,
-  `photo-blob` blob NOT NULL,
+  `photo-blob` longblob NOT NULL,
 
   PRIMARY KEY (`prop-id`)
 

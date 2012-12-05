@@ -64,28 +64,6 @@ INSERT INTO `prop` VALUES
 ( NULL, 'cat', 'covered in ants', NULL, 'red' )
 ( NULL, 'shirt', 'covered in ants', NULL, 'sticky' )
 
-INSERT INTO `photo` VALUES
-( NULL, 'image/gif', 'blob' )
-( NULL, 'image/gif', 'blob2' )
-( NULL, 'image/jepg', '' )
-( NULL, 'image/jepg', 'blob2' )
-( NULL, 'image/png', 'blob2' )
-( NULL, 'image/gif', 'blob2' )
-( NULL, 'image/gif', 'blob2' )
-( NULL, 'image/gif', 'blob2' )
-( NULL, 'image/gif', 'blob' )
-( NULL, 'image/png', 'blob2' )
-( NULL, 'image/gif', '' )
-( NULL, 'image/png', '' )
-( NULL, 'image/jepg', 'blob2' )
-( NULL, 'image/gif', 'blob' )
-( NULL, 'image/gif', 'blob' )
-( NULL, 'image/jepg', 'blob2' )
-( NULL, 'image/gif', 'blob' )
-( NULL, 'image/png', 'blob' )
-( NULL, 'image/png', 'blob' )
-( NULL, 'image/png', 'blob2' )
-
 INSERT INTO `category` VALUES
 ( NULL, 'set', 'upstairs' )
 ( NULL, 'light', 'store room' )

@@ -25,7 +25,7 @@ div.tile {
     background-color: #f5f5f5;
     border-radius: 2px;
     margin-bottom: 10px;
-    
+    height: 230px;
 }
 
 div.tile div {

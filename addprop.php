@@ -3,9 +3,9 @@
     
     if(isset($_REQUEST['title'])) {
         
-        $title = $_REQUEST['title'];
-        $description = $_REQUEST['description'];
-        $tag = $_REQUEST['tag'];
+        $title = addslashes($_REQUEST['title']);
+        $description = addslashes($_REQUEST['description']);
+        $tag = addslashes($_REQUEST['tag']);
         
         $query = "INSERT INTO prop (`title`,`description`,`tag`) VALUES ('".$title."','".$description."','".$tag."')";
         
