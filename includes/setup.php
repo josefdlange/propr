@@ -1,5 +1,7 @@
 <?php
 
+session_start();
+
 $loggedIn = false;
 
 $debug_messages = "<!-- DEBUG INFORMATION: ";
@@ -19,6 +21,7 @@ if($database_connection) {
         
         // Correctly got the database table grabbed.
         $debug_messages = $debug_messages . "\n            ### SUCCESSFULLY CONNECTED TO DATABASE \n";
+        
         
     } else {
         
@@ -40,6 +43,17 @@ function most_recent_props() {
     return "HELLO";
 }
 
+//logout function
+function logout(){
+    session_destroy();
+    header("Location: index.php");
+}
+
+
+// Check if we're logged in.
+if(isset($_SESSION['loggedIn'])) {
+    $loggedIn = $_SESSION['loggedIn'];    
+}
 
 $debug_messages = $debug_messages . "\n     -->";
 

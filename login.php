@@ -1,4 +1,36 @@
-<?php require_once("includes/setup.php"); ?><!DOCTYPE html>
+<?php require_once("includes/setup.php"); 
+    
+    
+    if(isset($_REQUEST['email'])) {
+        
+        $email  = $_REQUEST['email'];
+        $pass   = md5($_REQUEST['password']);
+        
+        $sql = "SELECT * FROM person WHERE email='$email' AND password='$pass'";
+        
+        $result = mysql_query($sql) or die(mysql_error());
+        
+        if($result) {
+            
+            if(mysql_num_rows($result)>0) {
+                
+                // Successfully logged in a user. Let's set the session variables.
+                $_SESSION['currentUser'] = $email;
+                $_SESSION['loggedIn'] = true;
+                
+                session_write_close();
+                
+                header("Location: index.php");
+                
+            }
+            
+            $loginError = "Failed to log in. Check your credentials.";
+            
+        }
+        
+    }
+        
+?><!DOCTYPE html>
 <!--[if lt IE 7 ]><html class="ie ie6" lang="en"> <![endif]-->
 <!--[if IE 7 ]><html class="ie ie7" lang="en"> <![endif]-->
 <!--[if IE 8 ]><html class="ie ie8" lang="en"> <![endif]-->
@@ -44,8 +76,6 @@
 	<!-- Primary Page Layout
 	================================================== -->
 
-	<!-- Delete everything in this .container and get started on your own site! -->
-
 	<div class="container">
 		<div class="sixteen columns">
 			<h1 class="remove-bottom" style="margin-top: 40px">Propr</h1>
@@ -56,11 +86,27 @@
 		  require_once("includes/navigation.php");
 		?>
 		<div class="four columns offset-by-six">
-		  <h5>Log in</h5>
-		  <form name="login">
-		      Hello
+		  <?php if($loggedIn) {
+        
+    		  ?><h3>Already logged in!</h3><?php
+        
+    } else {
+    
+    if(isset($loginError)) {
+    
+    echo("<h5>".$loginError."</h5>");
+    
+    }?> 
+    
+    <h4>Log in</h4>
+		  <form name="login" method="POST">
+		      <input type="text" name="email" value="Email Address" />
+		      <input type="password" name="password" value="Password" />
+		      <input type="submit" value="Submit" />
+		      <input type="reset" value="Reset" />
 		  </form>
 		</div>
+		<?php } ?>
 	</div><!-- container -->
 
 

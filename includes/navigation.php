@@ -10,6 +10,7 @@
                 <li><a href="props.php">Props</a></li>
                 <li><a href="productions.php">Productions</a></li>
                 <li><a href="people.php">People</a></li>
+                <li><a href="logout.php">Log Out</a></li>
                 <?php
             }
         
