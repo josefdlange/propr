@@ -60,6 +60,7 @@ CREATE TABLE IF NOT EXISTS `person` (
   `phone` varchar(20) NOT NULL,
   `person-type` enum('actor','director','assistant','designer','faculty','scholar','manager','other') NOT NULL,
   `orginization` varchar(30) NOT NULL,
+  `password` varchar(32) NOT NULL,
 
   PRIMARY KEY (`person-id`)
 
