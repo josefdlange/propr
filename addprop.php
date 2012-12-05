@@ -1,34 +1,41 @@
 <?php require_once("includes/setup.php"); 
     
-    if(!$loggedIn) { header("Location: notLoggedIn.php"); }
     
-    $query = "SELECT * FROM prop";
-    $result = mysql_query($query) or die(mysql_error());
-    
-    if($result) {
+    if(isset($_REQUEST['title'])) {
         
-        if(mysql_num_rows($result)>0) {
-            
-            $props = array();
-            
-            while($row = mysql_fetch_assoc($result)) {
-                
-                $props[] = $row;
-                
-            }
-                        
-        } else {
-            
-            $error = "No props found! Sorry!";
-            
-        }
+        $title = $_REQUEST['title'];
+        $description = $_REQUEST['description'];
+        $tag = $_REQUEST['tag'];
         
-    } else {
-    
-        $error = "Database Error! Sorry!";
+        $query = "INSERT INTO prop (`title`,`description`,`tag`) VALUES ('".$title."','".$description."','".$tag."')";
+        
+        $result = mysql_query($query) or die(mysql_error());
+        
+        if(is_uploaded_file($_FILES['photo']['tmp_name'])) {
+            
+            $fileName = $_FILES['photo']['name'];
+            $tmpName  = $_FILES['photo']['tmp_name'];
+            $fileSize = $_FILES['photo']['size'];
+            $fileType = $_FILES['photo']['type'];
+            
+            $fp      = fopen($tmpName, 'r');
+            $content = fread($fp, filesize($tmpName));
+            $content = addslashes($content);
+            fclose($fp);
+             
+            $id = mysql_insert_id();
+             
+             $query = "INSERT INTO photo (`prop-id`, `photo-mime-type`, `photo-blob`) ".
+"VALUES ('".$id."', '".$fileType."', '".$content."')";
 
+            $result = mysql_query($query) or die(mysql_error());
+            
+            $result = mysql_query("UPDATE prop SET `photo-id`=".$id." WHERE `prop-id`=".$id."") or die(mysql_error());
         }
-    
+        
+        header("Location: props.php");
+        
+    }   else {      
 ?><!DOCTYPE html>
 <!--[if lt IE 7 ]><html class="ie ie6" lang="en"> <![endif]-->
 <!--[if IE 7 ]><html class="ie ie7" lang="en"> <![endif]-->
@@ -39,7 +46,7 @@
 	<!-- Basic Page Needs
   ================================================== -->
 	<meta charset="utf-8">
-	<title>Propr: Stage Prop Management | Props</title>
+	<title>Propr: Stage Prop Management | View Prop</title>
 	<meta name="description" content="">
 	<meta name="author" content="">
 
@@ -86,41 +93,20 @@
 		<?php
 		  require_once("includes/navigation.php");
 		?>
-		<div class="sixteen columns">
-    		<h3>Props in Propr Database</h3>
-    		<?php if(isset($error)) { echo($error); echo("</div>"); } else { 
-    		?></div><?
-    		  foreach($props as $prop) {
-        		  
-        		  $title = $prop['title'];
-        		  $photo_id = $prop['photo-id'];
-        		  $description = $prop['description'];
-        		  $tags = $prop['tag'];
-        		  
-        		  $photo_string = "";
-        		  
-        		  if($photo_id!=null) {
-            		  $photo_string = '<img src="image.php?prop_id='.$photo_id.'" />';
-            		  
-        		  } else {
-            		  
-            		  $photo_string = '<img src="images/questionmark.png" />';
-            		  
-        		  }
-        		  
-        		  $html = '<div class="four columns tile"><div><a href="prop.php?prop_id='.$prop['prop-id'].'"><h4>'.$title.'</h4>'.$photo_string.'<br /><span>'.$description.'</span></a></div></div>';
-        		  
-        		  echo($html);
-        		  
-    		  }
-    		
-    		} ?>
-    		<div class="four columns tile"><div><a href="addprop.php"><h4>Add Prop</h4><img src="images/add.png"><br /><span>Add a prop to the database.</span></a></div></div>
-    		
+		<div class="ten columns offset-by-three">
+		  <h3>Add a Prop</h3>
+		      <form name="addprop" method="post" enctype="multipart/form-data">
+		          <label>Title</label><input type="text" name="title" value="Prop Title" />
+		          <label>Description</label><input type="text" name="description" value="Prop Description" />
+		          <label>Photo</label><input type="file" name="photo" /><br /><br />
+		          <label>Tag</label><input type="text" name="tag" value="Prop Tag" />
+		          <input type="submit" value="Submit" />
+		      </form>
+		</div>
     </div><!-- container -->
 
 
 <!-- End Document
 ================================================== -->
 </body>
-</html>
+</html><?php } ?>

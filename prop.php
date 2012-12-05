@@ -1,4 +1,28 @@
-<?php require_once("includes/setup.php"); ?><!DOCTYPE html>
+<?php require_once("includes/setup.php"); 
+    
+    
+    $query = "SELECT * FROM prop WHERE `prop-id` = ".$_GET['prop_id']."";
+    $result = mysql_query($query) or die(mysql_error());
+    
+    if($result) {
+        
+        if(mysql_num_rows($result)>0) {
+            
+            $prop = mysql_fetch_assoc($result);
+                        
+        } else {
+            
+            $error = "Prop not found! Sorry!";
+            
+        } 
+        
+    } else {
+    
+        $error = "Database Error! Sorry!";
+
+        }
+        
+?><!DOCTYPE html>
 <!--[if lt IE 7 ]><html class="ie ie6" lang="en"> <![endif]-->
 <!--[if IE 7 ]><html class="ie ie7" lang="en"> <![endif]-->
 <!--[if IE 8 ]><html class="ie ie8" lang="en"> <![endif]-->
@@ -8,7 +32,7 @@
 	<!-- Basic Page Needs
   ================================================== -->
 	<meta charset="utf-8">
-	<title>Propr: Stage Prop Management</title>
+	<title>Propr: Stage Prop Management | View Prop</title>
 	<meta name="description" content="">
 	<meta name="author" content="">
 
@@ -55,16 +79,34 @@
 		<?php
 		  require_once("includes/navigation.php");
 		?>
-		<div class="four columns">
-			<h3>Welcome to Propr!</h3>
-			<p style="padding-right: 10px;">Propr is a lightweight, database-driven web application to manage stage props, the productions in which they're involved, and the persons resposible for them. This application is developed as a project for the Database Management Systems course at the University of Puget Sound, Fall 2012. <a href="http://josefdlange.com">Josef D. Lange</a> and Nick Burns.</p>
+		<div class="six columns offset-by-five prop">
+    		<?php if(isset($error)) { echo($error); echo("</div>"); } else { 
+    		
+    		
+    		      $title = $prop['title'];
+        		  $photo_id = $prop['photo-id'];
+        		  $description = $prop['description'];
+        		  $tags = $prop['tag'];
+        		  
+        		  $photo_string = "";
+        		  
+        		  if($photo_id!=null) {
+            		  $photo_string = '<img src="image.php?prop_id='.$photo_id.'" />';
+        		  }	else {
+            		  
+            		  $photo_string = '<img src="images/questionmark.png" />';
+            		  
+        		  }
+        		  
+        		  $html = "<h2>".$title."</h2>".$photo_string."<br /><span>".$description."";
+        		  
+        		  echo($html);
+
+        		  echo('<br /><br /><br /><a href="deleteProp.php?id='.$prop['prop-id'].'">Delete Prop!</a>');
+    		  }    		
+    		?>
 		</div>
-		<div class="twelve columns">
-			<h3>Recently-added Props</h3>
-			<p>Here are some of the most recently added props. Click on them to find more information.</p>	
-			<?php echo(most_recent_props()); ?>
-		</div>
-	</div><!-- container -->
+    </div><!-- container -->
 
 
 <!-- End Document

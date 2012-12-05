@@ -40,7 +40,24 @@ if($database_connection) {
 
 
 function most_recent_props() {
-    return "HELLO";
+    $query = "SELECT * FROM prop ORDER BY `prop-id` DESC LIMIT 2";
+    $result = mysql_query($query) or die(mysql_error());
+    $html = "";
+    
+    
+    while($row=mysql_fetch_assoc($result)) {
+        
+        if($row['photo-id']!=null) {
+            $photo_string = '<img src="image.php?prop_id='.$row['photo-id'].'" />';
+        } else {
+            $photo_string = '<img src="images/questionmark.png" />';
+        }
+        
+        $html = $html . '<div class="four columns tile"><div><a href="prop.php?prop_id='.$row['prop-id'].'"><h4>'.$row['title'].'</h4>'.$photo_string.'<br /><span>'.$row['description'].'</span></a></div></div>';
+        
+    }
+    
+    return $html;
 }
 
 //logout function
