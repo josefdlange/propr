@@ -6,9 +6,12 @@ SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
 
 
 CREATE TABLE IF NOT EXISTS `category` (
-  `category-id` int(11) NOT NULL AUTO_INCRIMENT,
+  `category-id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(30) NOT NULL,
-  `location` varchar(30) NOT NULL
+  `location` varchar(30) NOT NULL,
+  
+  PRIMARY KEY(`category-id`)
+  
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8  AUTO_INCREMENT=1 ;
 
 
@@ -17,7 +20,7 @@ CREATE TABLE IF NOT EXISTS `in-category` (
 
   `prop-id` int(11) NOT NULL,
   `category-id` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 ;
 
 
 
@@ -55,7 +58,7 @@ CREATE TABLE IF NOT EXISTS `person` (
   `state-province` varchar(20) NOT NULL,
   `country` varchar(20) NOT NULL,
   `phone` varchar(20) NOT NULL,
-  `person-type` enum('actor','director','assistant','other') NOT NULL,
+  `person-type` enum('actor','director','assistant','designer','faculty','scholar','manager','other') NOT NULL,
   `orginization` varchar(30) NOT NULL,
 
   PRIMARY KEY (`person-id`)
@@ -66,7 +69,7 @@ CREATE TABLE IF NOT EXISTS `person` (
 
 CREATE TABLE IF NOT EXISTS `photo` (
 
-  `prop-id` varchar(30) NOT NULL AUTO_INCREMENT,
+  `prop-id` int(30) NOT NULL,
   `photo-mime-type` varchar(30) NOT NULL,
   `photo-blob` blob NOT NULL,
 
@@ -96,7 +99,7 @@ CREATE TABLE IF NOT EXISTS `prop` (
   `prop-id` int(11) NOT NULL AUTO_INCREMENT,
   `title` varchar(30) NOT NULL,
   `description` varchar(100) NOT NULL,
-  `photo-id` int(11) NOT NULL,
+  `photo-id` int(11),
   `tag` varchar(30) NOT NULL,
 
   PRIMARY KEY (`prop-id`)
