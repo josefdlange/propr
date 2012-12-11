@@ -93,7 +93,8 @@ function propHasOwner($prop_id) {
 }
 
 function propIsInProduction($production_id) {
-    $sql = "PUT IT HERE";
+    $sql = "SELECT * FROM (`production` JOIN `in_production`) WHERE
+ (date_out != NULL) and (date_returned = NULL) and (production_id = '".$production_id."')";
     $result = mysql_query($sql) or die(mysql_error());
     if(mysql_num_rows($result)==1) {
         return $result;
