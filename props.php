@@ -93,19 +93,15 @@
     		  foreach($props as $prop) {
         		  
         		  $title = $prop['title'];
-        		  $photo_id = $prop['photo_id'];
         		  $description = $prop['description'];
         		  $tags = $prop['tag'];
         		  
         		  $photo_string = "";
         		  
-        		  if($photo_id!=null) {
-            		  $photo_string = '<img src="image.php?prop_id='.$photo_id.'" />';
-            		  
+        		  if(photoExists($prop['prop_id'])) {
+            		  $photo_string = '<img src="image.php?prop_id='.$prop['prop_id'].'" />';
         		  } else {
-            		  
             		  $photo_string = '<img src="images/questionmark.png" />';
-            		  
         		  }
         		  
         		  $html = '<div class="four columns tile"><div><a href="prop.php?prop_id='.$prop['prop_id'].'"><h4>'.$title.'</h4>'.$photo_string.'<br /><span>'.truncateString($description,40,true).'</span></a></div></div>';
@@ -115,7 +111,7 @@
     		  }
     		
     		} ?>
-    		<div class="four columns tile"><div><a href="addprop.php"><h4>Add Prop</h4><img src="images/add.png"><br /><span>Add a prop to the database.</span></a></div></div>
+    		<div class="four columns tile"><div><a href="addProp.php"><h4>Add Prop</h4><img src="images/add.png"><br /><span>Add a prop to the database.</span></a></div></div>
     		
     </div><!-- container -->
 

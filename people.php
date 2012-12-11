@@ -2,18 +2,18 @@
     
     if(!$loggedIn) { header("Location: notLoggedIn.php"); }
     
-    $query = "SELECT * FROM person LEFT OUTER JOIN owns_prop ORDER BY last_name ASC";
+    $query = "SELECT * FROM person ORDER BY person.last_name ASC";
     $result = mysql_query($query) or die(mysql_error());
     
     if($result) {
         
         if(mysql_num_rows($result)>0) {
             
-            $props = array();
+            $people = array();
             
             while($row = mysql_fetch_assoc($result)) {
                 
-                $props[] = $row;
+                $people[] = $row;
                 
             }
                         
@@ -39,7 +39,7 @@
 	<!-- Basic Page Needs
   ================================================== -->
 	<meta charset="utf-8">
-	<title>Propr: Stage Prop Management | Props</title>
+	<title>Propr: Stage Prop Management | People</title>
 	<meta name="description" content="">
 	<meta name="author" content="">
 
@@ -87,21 +87,28 @@
 		  require_once("includes/navigation.php");
 		?>
 		<div class="sixteen columns">
-    		<h3>Props in Propr Database</h3>
+    		<h3>People in Propr Database</h3>
     		<?php if(isset($error)) { echo($error); echo("</div>"); } else { 
     		?></div><?
     		  foreach($people as $person) {
         		  
         		  $name = $person['first_name'] . " " . $person['last_name'];
+        		  $id = $person['person_id'];
+        		  $position = $person['person_type'];
+        		  $organization = $person['organization'];
         		  
-        		  $html = $name . "<br />";
+        		  $description = ucfirst($position) . " in " . $organization . ".";
+        		  
+        		  $phone = "Phone number: " . $person['phone'];
+        		  
+        		  $html = '<div class="fourteen columns offset-by-one"><div class="autotile tile"><a href="person.php?person_id="'.$id.'"><h3>'.$name.'</h3><br /><span>'.$description.'</span><span class="personMeta">'.$phone.'</span></a></div></div>';
         		  
         		  echo($html);
         		  
     		  }
     		
     		} ?>
-    		<div class="four columns tile"><div><a href="addprop.php"><h4>Add Prop</h4><img src="images/add.png"><br /><span>Add a prop to the database.</span></a></div></div>
+    		<div class="fourteen columns offset-by-one"><div class="autotile tile"><a href="addPerson.php"><h4>Add Person</h4></a></div></div>
     		
     </div><!-- container -->
 

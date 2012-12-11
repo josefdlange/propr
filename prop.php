@@ -84,14 +84,21 @@
     		
     		
     		      $title = $prop['title'];
-        		  $photo_id = $prop['photo_id'];
         		  $description = $prop['description'];
         		  $tags = $prop['tag'];
         		  
+        		  
+        		  $owner = propHasOwner($prop['prop_id']);
+        		  
+        		  if($owner) {
+        		      $row = mysql_fetch_assoc($owner);
+            		  $description .= "<br /><br />This prop is owned by <a href=\"person.php?person_id=".$row['person_id']."\">".$row['first_name']." ".$row['last_name']."</a>.";
+        		  }
+        		  
         		  $photo_string = "";
         		  
-        		  if($photo_id!=null) {
-            		  $photo_string = '<img src="image.php?prop_id='.$photo_id.'" />';
+        		  if(photoExists($prop['prop_id'])) {
+            		  $photo_string = '<img src="image.php?prop_id='.$prop['prop_id'].'" />';
         		  }	else {
             		  
             		  $photo_string = '<img src="images/questionmark.png" />';

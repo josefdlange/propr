@@ -68,7 +68,7 @@ CREATE TABLE IF NOT EXISTS `person` (
   `country` varchar(20) NOT NULL,
   `phone` varchar(20) NOT NULL,
   `person_type` enum('actor','director','assistant','designer','faculty','scholar','manager','other') NOT NULL,
-  `orginization` varchar(30) NOT NULL,
+  `organization` varchar(30) NOT NULL,
   `password` varchar(32) NOT NULL,
 
   PRIMARY KEY (`person_id`)

@@ -76,6 +76,22 @@ function logout(){
     header("Location: index.php");
 }
 
+function photoExists($prop_id) {
+    $sql = "SELECT * FROM photo WHERE prop_id='".$prop_id."'";
+    $result = mysql_query($sql) or die(mysql_error());
+    return (mysql_num_rows($result)>0);
+}
+
+function propHasOwner($prop_id) {
+    $sql = "SELECT * FROM owns_prop NATURAL JOIN person WHERE owns_prop.prop_id='".$prop_id."'";
+    $result = mysql_query($sql) or die(mysql_error());
+    if(mysql_num_rows($result)==1) {
+        return $result;
+    } else {
+        return false;
+    }
+}
+
 
 // Check if we're logged in.
 if(isset($_SESSION['loggedIn'])) {

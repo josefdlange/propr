@@ -33,6 +33,24 @@ div.tile div {
     width: 90%;
 }
 
+.autotile {
+    height: auto !important;
+    padding: 3%;
+    text-align: left !important;
+}
+
+.autotile * {
+    text-align: left !important;
+}
+
+.autotile span {
+    font-size: 120% !important;
+}
+
+span.personMeta {
+    font-size: 100% !important;
+}
+
 div.tile h4 {
     text-align: center;
 }
