@@ -60,6 +60,12 @@ function most_recent_props() {
     return $html;
 }
 
+// Truncates a given string to a certain number of words, with the option
+// to leave an ellipsis.
+function truncateString($theString, $numberOfWords, $addEllipsis) {
+    
+}
+
 //logout function
 function logout(){
     session_destroy();
