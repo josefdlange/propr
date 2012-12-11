@@ -24,7 +24,7 @@
     
             }
         
-        $sql = "SELECT * FROM owns_prop WHERE person_id=".$_GET['person_id'];
+        $sql = "SELECT DISTINCT prop.prop_id, prop.title FROM owns_prop JOIN prop WHERE person_id=".$_GET['person_id'];
         $result = mysql_query($sql) or die(mysql_error());
         
         if($result) {
@@ -39,7 +39,33 @@
                             
             } else {
                 
-               
+                $props_owned = [];
+            } 
+            
+        } else {
+        
+            $error = "Database Error! Sorry!";
+    
+            }
+
+
+            $sql = "SELECT DISTINCT production.production_id, production.title FROM involved_in JOIN production WHERE person_id=".$_GET['person_id'];
+        $result = mysql_query($sql) or die(mysql_error());
+        
+        if($result) {
+            
+            if(mysql_num_rows($result)>0) {
+                
+                $productions = array();
+                
+                while($row = mysql_fetch_assoc($result)) {
+                    $productions[] = $row;
+                }
+                            
+            } else {
+            
+                $productions = [];
+                
                 
             } 
             
@@ -108,7 +134,6 @@
 		<?php
 		  require_once("includes/navigation.php");
 		?>
-		<div class="six columns offset-by-five prop">
     		<?php if(isset($error)) { echo($error); echo("</div>"); } else { 
     		
     		
@@ -122,7 +147,37 @@
     		      $role = $person['person_type'];
     		      $subtitle = ucfirst($role) . ' in ' . $organization;
     		      
-    		      $html = '<div style="ten columns offset-by-three"><h2>'.$name.'</h2><h4>'.$subtitle.'</h4><br /><span>'.$address.'<br /><br />'.$phone.'</span></div>';
+    		      $html = '<div class="four columns offset-by-two"><h2>'.$name.'</h2><h4>'.$subtitle.'</h4><br /><span>'.$address.'<br /><br />'.$phone.'</span></div>';
+    		      
+    		      if(count($props_owned)>0) {
+    		          
+    		          $html .= '<div class="four columns"><h3>Props Owned</h3>';
+    		          
+        		      foreach($props_owned as $prop) {
+            		      
+            		      $html .= '<a href="prop.php?prop_id='.$prop['prop_id'].'" style="font-size: 130%;">'.$prop['title'].'</a>, ';
+            		      
+        		      }
+    		          		      $html .= '</div>';
+
+    		      }
+    		      
+    		      if(count($productions)>0) {
+    		          
+    		          $html .= '<div class="four columns"><h3>Productions Involved In</h3>';
+    		          
+        		      foreach($productions as $production) {
+            		      
+            		      $html .= '<a href="production.php?production_id='.$production['production_id'].'" style="font-size: 130%;">'.$production['title'].'</a>, ';
+            		      
+        		      }
+    		      
+    		          		      $html .= '</div>';
+
+    		      
+    		      }
+    		      
+    		      $html .= '<div class="twelve columns offset-by-two"><br /><br /><a href="deletePerson.php?id='.$person['person_id'].'">Delete '.$name.' from Propr.</a></div>';
     		      
     		      echo($html);
     		  }    		

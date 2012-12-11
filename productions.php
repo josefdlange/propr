@@ -99,36 +99,18 @@
 					$organization = $production['orginization'];
 					$start_date = $production['start_date'];
 					$end_date = $production['end_date'];
+					
+					$description = "By " . $playwright . ". Opens " . $start_date . ", closes " . $end_date . ". Produced by " . $organization . ".";
 
-					$html = '
-						<div class="four columns tile">
-							<div>
-								<a href="prop.php?prop_id='.$production['prop_id'].'">
-									<h4>'.$title.'</h4>
-									<br />
-									<h5>'.$playwright.'</h5><h5>'.$orginization.'</h5>
-									<br />
-									<h6>'.$start_date.' to '.$end_date.'</h6>
-								</a>
-							</div>
-						</div>';
+					$html = '<div class="fourteen columns offset-by-one"><div class="autotile tile"><a href="production.php?production_id='.$production_id.'"><h3>'.$title.'</h3><br /><span>'.$description.'</span></a></div></div>';
 
 				  echo($html);
 
 			  }
 
 			} ?>
-			<div class="four columns tile">
-				<div>
-					<a href="addproduction.php">
-						<h4>Add Production</h4>
-						<img src="images/add.png">
-						<br />
-						<span>Add a production to the database.</span>
-					</a>
-				</div>
-			</div>
-
+			<div class="fourteen columns offset-by-one"><div class="autotile tile"><a href="addProduction.php"><h3>Add Production</h3><br /><span>Add a production to the database.</span></a>
+		
 	</div><!-- container -->
 
 
