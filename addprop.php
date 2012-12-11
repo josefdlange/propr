@@ -11,6 +11,8 @@
         
         $result = mysql_query($query) or die(mysql_error());
         
+        $id = mysql_insert_id();
+        
         if(is_uploaded_file($_FILES['photo']['tmp_name'])) {
             
             $fileName = $_FILES['photo']['name'];
@@ -23,14 +25,16 @@
             $content = addslashes($content);
             fclose($fp);
              
-            $id = mysql_insert_id();
              
-             $query = "INSERT INTO photo (`prop-id`, `photo-mime-type`, `photo-blob`) ".
+             $query = "INSERT INTO photo (`prop_id`, `photo_mime_type`, `photo_blob`) ".
 "VALUES ('".$id."', '".$fileType."', '".$content."')";
 
             $result = mysql_query($query) or die(mysql_error());
             
-            $result = mysql_query("UPDATE prop SET photo_id=".$id." WHERE prop_id=".$id."") or die(mysql_error());
+        }
+        
+        if($_REQUEST['owner']!="") {
+            mysql_query("INSERT INTO owns_prop (prop_id, person_id) VALUES (".id.",".$_REQUEST['owner'].")") or die(mysql_error());
         }
         
         header("Location: props.php");
@@ -99,6 +103,13 @@
 		          <label>Title</label><input type="text" name="title" value="Prop Title" />
 		          <label>Description</label><input type="text" name="description" value="Prop Description" />
 		          <label>Photo</label><input type="file" name="photo" /><br /><br />
+		          <label>Owner</label>
+		          <select name="owner">
+		              <option value="">No Owner</option>
+		              <?php 
+    		              
+		              ?>
+		          </select>
 		          <label>Tag</label><input type="text" name="tag" value="Prop Tag" />
 		          <input type="submit" value="Submit" />
 		      </form>
