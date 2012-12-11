@@ -101,6 +101,8 @@
             		  $row = mysql_fetch_assoc(production);
             		  $description .= "<br /><br />This prop is currently involved in the production <a href=\"production.php?production_id=".$row['production_id']."\">".$row['title']."</a>.";
 
+        		  } else {
+            		  $description .= '<br /><br /><a href="checkoutProp.php?prop_id='.$prop['prop_id'].'">Use this prop in your production.</a>';
         		  }
         		  
         		  $photo_string = "";

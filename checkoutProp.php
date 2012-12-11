@@ -1,41 +1,23 @@
 <?php require_once("includes/setup.php"); 
     
     
-    if(isset($_REQUEST['title'])) {
+    if(isset($_REQUEST['production_id'])) {
         
-        $title = addslashes($_REQUEST['title']);
-        $description = addslashes($_REQUEST['description']);
-        $tag = addslashes($_REQUEST['tag']);
-        
-        $query = "INSERT INTO prop (`title`,`description`,`tag`) VALUES ('".$title."','".$description."','".$tag."')";
+        $prop_id = $_REQUEST['prop_id'];
+        $production_id = $_REQUEST['production_id'];
+        $condition_out = $_REQUEST['condition_out'];
+        $date_out = date("Y-d-m");
+        $date_due = $_REQUEST['date_due'];
+            
+        $query = "INSERT INTO in_production (prop_id, production_id, condition_out, date_out, date_due) VALUES ('".$prop_id."','".$production_id."','".$condition_out."','".$date_out."','".$date_due."',)";
         
         $result = mysql_query($query) or die(mysql_error());
         
         $id = mysql_insert_id();
         
-        if(is_uploaded_file($_FILES['photo']['tmp_name'])) {
-            
-            $fileName = $_FILES['photo']['name'];
-            $tmpName  = $_FILES['photo']['tmp_name'];
-            $fileSize = $_FILES['photo']['size'];
-            $fileType = $_FILES['photo']['type'];
-            
-            $fp      = fopen($tmpName, 'r');
-            $content = fread($fp, filesize($tmpName));
-            $content = addslashes($content);
-            fclose($fp);
-             
-             
-             $query = "INSERT INTO photo (`prop-id`, `photo-mime-type`, `photo-blob`) ".
-"VALUES ('".$id."', '".$fileType."', '".$content."')";
-
-            $result = mysql_query($query) or die(mysql_error());
-            
-        }
+        header("Location: prop.php?prop_id=".$prop_id);
         
-        header("Location: props.php");
-        
-    }   else {      
+    }   else if(isset($_REQUEST['prop_id']) {      
 ?><!DOCTYPE html>
 <!--[if lt IE 7 ]><html class="ie ie6" lang="en"> <![endif]-->
 <!--[if IE 7 ]><html class="ie ie7" lang="en"> <![endif]-->
@@ -94,12 +76,18 @@
 		  require_once("includes/navigation.php");
 		?>
 		<div class="ten columns offset-by-three">
-		  <h3>Add a Prop</h3>
-		      <form name="addprop" method="post" enctype="multipart/form-data">
-		          <label>Title</label><input type="text" name="title" value="Prop Title" />
-		          <label>Description</label><input type="text" name="description" value="Prop Description" />
-		          <label>Photo</label><input type="file" name="photo" /><br /><br />
-		          <label>Tag</label><input type="text" name="tag" value="Prop Tag" />
+		  <h3>Check Out Prop</h3>
+		      <form name="addToProduction" method="post" enctype="multipart/form-data">
+		          <label>Production</label>
+		          <select name="production_id">
+		              <option value="">No Owner</option>
+		              <?php 
+    		              $result = mysql_query("SELECT production_id, title FROM production") or die(mysql_error());
+    		              while($row = mysql_fetch_assoc($result)) {
+        		              echo('<option value="'.$production_id.'">'.$title.'</option>');
+    		              }
+		              ?>
+		          </select>
 		          <input type="submit" value="Submit" />
 		      </form>
 		</div>
@@ -109,4 +97,4 @@
 <!-- End Document
 ================================================== -->
 </body>
-</html><?php } ?>
+</html><?php } else { header('Location: props.php'); } ?>

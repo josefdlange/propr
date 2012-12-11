@@ -27,10 +27,10 @@ CREATE TABLE IF NOT EXISTS `in_category` (
 CREATE TABLE IF NOT EXISTS `in_production` (
 
   `date_out` date NOT NULL,
-  `date_due` date NOT NULL,
-  `date_returned` date NOT NULL,
+  `date_due` date,
+  `date_returned` date,
   `condition_out` enum('poor','normal','good','excellent','new') NOT NULL,
-  `condition_returned` enum('poor','normal','good','excellent','new') NOT NULL,
+  `condition_returned` enum('poor','normal','good','excellent','new'),
   `prop_id` int(11) NOT NULL,
   `production_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
