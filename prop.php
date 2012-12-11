@@ -1,7 +1,7 @@
 <?php require_once("includes/setup.php"); 
     
     
-    $query = "SELECT * FROM prop WHERE `prop-id` = ".$_GET['prop_id']."";
+    $query = "SELECT * FROM prop WHERE prop_id = ".$_GET['prop_id']."";
     $result = mysql_query($query) or die(mysql_error());
     
     if($result) {
@@ -84,7 +84,7 @@
     		
     		
     		      $title = $prop['title'];
-        		  $photo_id = $prop['photo-id'];
+        		  $photo_id = $prop['photo_id'];
         		  $description = $prop['description'];
         		  $tags = $prop['tag'];
         		  
@@ -102,7 +102,7 @@
         		  
         		  echo($html);
 
-        		  echo('<br /><br /><br /><a href="deleteProp.php?id='.$prop['prop-id'].'">Delete Prop!</a>');
+        		  echo('<br /><br /><br /><a href="deleteProp.php?id='.$prop['prop_id'].'">Delete Prop!</a>');
     		  }    		
     		?>
 		</div>

@@ -30,7 +30,7 @@
 
             $result = mysql_query($query) or die(mysql_error());
             
-            $result = mysql_query("UPDATE prop SET `photo-id`=".$id." WHERE `prop-id`=".$id."") or die(mysql_error());
+            $result = mysql_query("UPDATE prop SET photo_id=".$id." WHERE prop_id=".$id."") or die(mysql_error());
         }
         
         header("Location: props.php");

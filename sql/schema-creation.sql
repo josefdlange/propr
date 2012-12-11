@@ -6,41 +6,50 @@ SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
 
 
 CREATE TABLE IF NOT EXISTS `category` (
-  `category-id` int(11) NOT NULL AUTO_INCREMENT,
+  `category_id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(30) NOT NULL,
   `location` varchar(30) NOT NULL,
   
-  PRIMARY KEY(`category-id`)
+  PRIMARY KEY(`category_id`)
   
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8  AUTO_INCREMENT=1 ;
 
 
 
-CREATE TABLE IF NOT EXISTS `in-category` (
+CREATE TABLE IF NOT EXISTS `in_category` (
 
-  `prop-id` int(11) NOT NULL,
-  `category-id` int(11) NOT NULL
+  `prop_id` int(11) NOT NULL,
+  `category_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 ;
 
 
 
-CREATE TABLE IF NOT EXISTS `in-production` (
+CREATE TABLE IF NOT EXISTS `in_production` (
 
-  `date-out` date NOT NULL,
-  `date-due` date NOT NULL,
-  `date-returned` date NOT NULL,
-  `condition-out` enum('poor','normal','good','excellent','new') NOT NULL,
-  `condition-returned` enum('poor','normal','good','excellent','new') NOT NULL,
-  `prop-id` int(11) NOT NULL,
-  `production-id` int(11) NOT NULL
+  `date_out` date NOT NULL,
+  `date_due` date NOT NULL,
+  `date_returned` date NOT NULL,
+  `condition_out` enum('poor','normal','good','excellent','new') NOT NULL,
+  `condition_returned` enum('poor','normal','good','excellent','new') NOT NULL,
+  `prop_id` int(11) NOT NULL,
+  `production_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
 
-CREATE TABLE IF NOT EXISTS `involved-in` (
+CREATE TABLE IF NOT EXISTS `involved_in` (
 
-  `person-id` int(11) NOT NULL,
-  `production-id` int(11) NOT NULL
+  `person_id` int(11) NOT NULL,
+  `production_id` int(11) NOT NULL
+
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE IF NOT EXISTS `owns_prop` (
+
+  `person_id` int(11) NOT NULL,
+  `prop_id` int(11) NOT NULL,
+  
+  PRIMARY KEY (`prop_id`)
 
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -48,21 +57,21 @@ CREATE TABLE IF NOT EXISTS `involved-in` (
 
 CREATE TABLE IF NOT EXISTS `person` (
 
-  `person-id` int(11) NOT NULL AUTO_INCREMENT,
-  `last-name` varchar(30) NOT NULL,
-  `first-name` varchar(30) NOT NULL,
+  `person_id` int(11) NOT NULL AUTO_INCREMENT,
+  `last_name` varchar(30) NOT NULL,
+  `first_name` varchar(30) NOT NULL,
   `email` varchar(30) NOT NULL,
-  `address-line1` varchar(30) NOT NULL,
-  `address-line2` varchar(30) NOT NULL,
+  `address_line1` varchar(30) NOT NULL,
+  `address_line2` varchar(30) NOT NULL,
   `city` varchar(20) NOT NULL,
-  `state-province` varchar(20) NOT NULL,
+  `state_province` varchar(20) NOT NULL,
   `country` varchar(20) NOT NULL,
   `phone` varchar(20) NOT NULL,
-  `person-type` enum('actor','director','assistant','designer','faculty','scholar','manager','other') NOT NULL,
+  `person_type` enum('actor','director','assistant','designer','faculty','scholar','manager','other') NOT NULL,
   `orginization` varchar(30) NOT NULL,
   `password` varchar(32) NOT NULL,
 
-  PRIMARY KEY (`person-id`)
+  PRIMARY KEY (`person_id`)
 
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
@@ -70,11 +79,11 @@ CREATE TABLE IF NOT EXISTS `person` (
 
 CREATE TABLE IF NOT EXISTS `photo` (
 
-  `prop-id` int(30) NOT NULL,
-  `photo-mime-type` varchar(30) NOT NULL,
-  `photo-blob` longblob NOT NULL,
+  `prop_id` int(30) NOT NULL,
+  `photo_mime_type` varchar(30) NOT NULL,
+  `photo_blob` longblob NOT NULL,
 
-  PRIMARY KEY (`prop-id`)
+  PRIMARY KEY (`prop_id`)
 
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -82,14 +91,14 @@ CREATE TABLE IF NOT EXISTS `photo` (
 
 CREATE TABLE IF NOT EXISTS `production` (
 
-  `production-id` int(11) NOT NULL AUTO_INCREMENT,
+  `production_id` int(11) NOT NULL AUTO_INCREMENT,
   `title` varchar(40) NOT NULL,
   `playwright` varchar(40) NOT NULL,
   `orginization` varchar(40) NOT NULL,
-  `start-date` date NOT NULL,
-  `end-date` text NOT NULL,
+  `start_date` date NOT NULL,
+  `end_date` text NOT NULL,
 
-  PRIMARY KEY (`production-id`)
+  PRIMARY KEY (`production_id`)
 
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
@@ -97,13 +106,12 @@ CREATE TABLE IF NOT EXISTS `production` (
 
 CREATE TABLE IF NOT EXISTS `prop` (
 
-  `prop-id` int(11) NOT NULL AUTO_INCREMENT,
+  `prop_id` int(11) NOT NULL AUTO_INCREMENT,
   `title` varchar(30) NOT NULL,
   `description` varchar(100) NOT NULL,
-  `photo-id` int(11),
   `tag` varchar(30) NOT NULL,
 
-  PRIMARY KEY (`prop-id`)
+  PRIMARY KEY (`prop_id`)
 
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 

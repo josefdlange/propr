@@ -93,7 +93,7 @@
     		  foreach($props as $prop) {
         		  
         		  $title = $prop['title'];
-        		  $photo_id = $prop['photo-id'];
+        		  $photo_id = $prop['photo_id'];
         		  $description = $prop['description'];
         		  $tags = $prop['tag'];
         		  
@@ -108,7 +108,7 @@
             		  
         		  }
         		  
-        		  $html = '<div class="four columns tile"><div><a href="prop.php?prop_id='.$prop['prop-id'].'"><h4>'.$title.'</h4>'.$photo_string.'<br /><span>'.$description.'</span></a></div></div>';
+        		  $html = '<div class="four columns tile"><div><a href="prop.php?prop_id='.$prop['prop_id'].'"><h4>'.$title.'</h4>'.$photo_string.'<br /><span>'.truncateString($description,40,true).'</span></a></div></div>';
         		  
         		  echo($html);
         		  
