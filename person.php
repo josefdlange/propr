@@ -1,34 +1,56 @@
 <?php require_once("includes/setup.php"); 
     
-    if(!$loggedIn) { header("Location: notLoggedIn.php"); }
     
-    $query = "SELECT * FROM person ORDER BY person.last_name ASC";
-    $result = mysql_query($query) or die(mysql_error());
+    if(isset($_GET['person_id'])&&$_GET['person_id']!="") {
     
-    if($result) {
+        $query = "SELECT * FROM person WHERE person_id=".$_GET['person_id'];
+        $result = mysql_query($query) or die(mysql_error());
         
-        if(mysql_num_rows($result)>0) {
+        if($result) {
             
-            $people = array();
+            if(mysql_num_rows($result)>0) {
+                
+                $person = mysql_fetch_assoc($result);
+                            
+            } else {
+                
+                $error = "Person not found! Sorry!";
+                
+            } 
             
-            while($row = mysql_fetch_assoc($result)) {
-                
-                $people[] = $row;
-                
-            }
-                        
         } else {
-            
-            $error = "No people found! Sorry!";
-            
-        }
         
-    } else {
+            $error = "Database Error! Sorry!";
     
-        $error = "Database Error! Sorry!";
-
-        }
+            }
+        
+        $sql = "SELECT * FROM owns_prop WHERE person_id=".$_GET['person_id'];
+        $result = mysql_query($sql) or die(mysql_error());
+        
+        if($result) {
+            
+            if(mysql_num_rows($result)>0) {
+                
+                $props_owned = array();
+                
+                while($row = mysql_fetch_assoc($result)) {
+                    $props_owned[] = $row;
+                }
+                            
+            } else {
+                
+               
+                
+            } 
+            
+        } else {
+        
+            $error = "Database Error! Sorry!";
     
+            }
+        
+    } else { header('Location: people.php'); }
+        
 ?><!DOCTYPE html>
 <!--[if lt IE 7 ]><html class="ie ie6" lang="en"> <![endif]-->
 <!--[if IE 7 ]><html class="ie ie7" lang="en"> <![endif]-->
@@ -39,7 +61,7 @@
 	<!-- Basic Page Needs
   ================================================== -->
 	<meta charset="utf-8">
-	<title>Propr: Stage Prop Management | People</title>
+	<title>Propr: Stage Prop Management | View Person</title>
 	<meta name="description" content="">
 	<meta name="author" content="">
 
@@ -86,30 +108,26 @@
 		<?php
 		  require_once("includes/navigation.php");
 		?>
-		<div class="sixteen columns">
-    		<h3>People in Propr Database</h3>
+		<div class="six columns offset-by-five prop">
     		<?php if(isset($error)) { echo($error); echo("</div>"); } else { 
-    		?></div><?
-    		  foreach($people as $person) {
-        		  
-        		  $name = $person['first_name'] . " " . $person['last_name'];
-        		  $id = $person['person_id'];
-        		  $position = $person['person_type'];
-        		  $organization = $person['organization'];
-        		  
-        		  $description = ucfirst($position) . " in " . $organization . ".";
-        		  
-        		  $phone = "Phone number: " . $person['phone'];
-        		  
-        		  $html = '<div class="fourteen columns offset-by-one"><div class="autotile tile"><a href="person.php?person_id='.$id.'"><h3>'.$name.'</h3><br /><span>'.$description.'</span><span class="personMeta">'.$phone.'</span></a></div></div>';
-        		  
-        		  echo($html);
-        		  
-    		  }
     		
-    		} ?>
-    		<div class="fourteen columns offset-by-one"><div class="autotile tile"><a href="addPerson.php"><h4>Add Person</h4></a></div></div>
     		
+    		      $name = $person['first_name'] . " " . $person['last_name'];
+    		      $email = $person['email'];
+    		      $al2 = "";
+    		      if($person['address_line2']!="") { $al2 = $person['address_line2']."<br />"; }
+    		      $address = $person['address_line1'] . "<br />" . $al2 . $person['city'] . ", " . $person['state_province'] . ", " . $person['country'];
+    		      $phone = $person['phone'];
+    		      $organization = $person['organization'];
+    		      $role = $person['person_type'];
+    		      $subtitle = ucfirst($role) . ' in ' . $organization;
+    		      
+    		      $html = '<div style="ten columns offset-by-three"><h2>'.$name.'</h2><h4>'.$subtitle.'</h4><br /><span>'.$address.'<br /><br />'.$phone.'</span></div>';
+    		      
+    		      echo($html);
+    		  }    		
+    		?>
+		</div>
     </div><!-- container -->
 
 

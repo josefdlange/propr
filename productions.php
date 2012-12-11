@@ -2,7 +2,7 @@
 	
 	if(!$loggedIn) { header("Location: notLoggedIn.php"); }
 	
-	$query = "SELECT * FROM productions";
+	$query = "SELECT * FROM production";
 	$result = mysql_query($query) or die(mysql_error());
 	
 	if($result) {

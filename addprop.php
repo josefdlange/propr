@@ -34,7 +34,7 @@
         }
         
         if($_REQUEST['owner']!="") {
-            mysql_query("INSERT INTO owns_prop (prop_id, person_id) VALUES (".id.",".$_REQUEST['owner'].")") or die(mysql_error());
+            mysql_query("INSERT INTO owns_prop (prop_id, person_id) VALUES (".$id.",".$_REQUEST['owner'].")") or die(mysql_error());
         }
         
         header("Location: props.php");
@@ -107,7 +107,10 @@
 		          <select name="owner">
 		              <option value="">No Owner</option>
 		              <?php 
-    		              
+    		              $result = mysql_query("SELECT person_id, first_name, last_name, person_type, organization FROM person") or die(mysql_error());
+    		              while($row = mysql_fetch_assoc($result)) {
+        		              echo('<option value="'.$row['person_id'].'">'.$row['first_name'].' '.$row['last_name'].' - '.ucfirst($row['person_type'])   .' in '.$row['organization'].'</option>');
+    		              }
 		              ?>
 		          </select>
 		          <label>Tag</label><input type="text" name="tag" value="Prop Tag" />

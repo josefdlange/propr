@@ -48,7 +48,7 @@ function most_recent_props() {
     while($row=mysql_fetch_assoc($result)) {
         
         if($row['prop_id']!=null) {
-            $photo_string = '<img src="image.php?prop_id='.$row['photo_id'].'" />';
+            $photo_string = '<img src="image.php?prop_id='.$row['prop_id'].'" />';
         } else {
             $photo_string = '<img src="images/questionmark.png" />';
         }
