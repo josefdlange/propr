@@ -84,14 +84,18 @@
 		<?php
 		  require_once("includes/navigation.php");
 		?>
-		<div class="ten columns offset-by-three">
+		<div class="twelve columns offset-by-two">
 		  <h3>Add a Production</h3>
+		</div>
 		      <form name="addproduction" method="post" enctype="multipart/form-data">
+		      <div class="four columns offset-by-two">
 		          <label>Title</label><input type="text" name="title" value="Production Title" />
 		          <label>Playwright</label><input type="text" name="playwright" value="Production Description" />
-		          <label>Orginization</label><input type="text" name="orginization" value="Orginization"/>
-		          <label>Start date</label><input type="text" name="start_date" value="Start Date" />
-					 <label>End date</label><input type="text" name="end_date" value="End Date" />
+		          <label>Orginization</label><input type="text" name="orginization" value="Organization"/>
+		      </div>
+		      <div class="four columns">
+		          <label>Start date (YYYY-MM-DD)</label><input type="text" name="start_date" value="Start Date" />
+					 <label>End date (YYYY-MM-DD)</label><input type="text" name="end_date" value="End Date" />
 					 <label>Point of Contact</label>
 					 <select name="point_of_contact_id">
 						 <option value="">No Contact</option>
@@ -103,6 +107,7 @@
 					 ?>
 				 </select>
 		          <input type="submit" value="Submit" />
+		      </div>
 		      </form>
 		</div>
     </div><!-- container -->

@@ -95,6 +95,14 @@
             		  $description .= "<br /><br />This prop is owned by <a href=\"person.php?person_id=".$row['person_id']."\">".$row['first_name']." ".$row['last_name']."</a>.";
         		  }
         		  
+        		  $production = propIsInProduction($prop['prop_id']);
+        		  
+        		  if($production) {
+            		  $row = mysql_fetch_assoc(production);
+            		  $description .= "<br /><br />This prop is currently involved in the production <a href=\"production.php?production_id=".$row['production_id']."\">".$row['title']."</a>.";
+
+        		  }
+        		  
         		  $photo_string = "";
         		  
         		  if(photoExists($prop['prop_id'])) {

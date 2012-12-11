@@ -92,6 +92,16 @@ function propHasOwner($prop_id) {
     }
 }
 
+function propIsInProduction($production_id) {
+    $sql = "PUT IT HERE";
+    $result = mysql_query($sql) or die(mysql_error());
+    if(mysql_num_rows($result)==1) {
+        return $result;
+    } else {
+        return false;
+    }
+}
+
 
 // Check if we're logged in.
 if(isset($_SESSION['loggedIn'])) {
